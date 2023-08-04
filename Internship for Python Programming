@@ -1,4 +1,4 @@
-TASK 2
+1.TASK 2
 
 CALCULATOR
 
@@ -64,3 +64,51 @@ tk.Button(root, text=".", width=5, height=2, command=button_click(".")).grid(row
 
 root.mainloop()
 
+2.TASK 3
+
+PASSWORD GENERATOR
+
+A password generator is a useful tool that generates strong and random passwords for users.
+This project aims tocreate a password generator application using Python,
+allowing users to specify the length and complexity of the password.
+
+
+import tkinter as tk
+import random
+import string
+
+
+def generate_password():
+    # Get the desired password length from the user input
+    password_length = int(length_entry.get())
+
+    # Define the characters from which the password will be generated
+    characters = string.ascii_letters + string.digits + string.punctuation
+
+    # Generate the password using random.choices
+    password = ''.join(random.choices(characters, k=password_length))
+
+    # Display the generated password on the screen
+    password_label.config(text="Generated Password: " + password)
+
+
+# Create the main tkinter window
+root = tk.Tk()
+root.title("Password Generator")
+
+# Create a label and entry for the user to input the desired password length
+length_label = tk.Label(root, text="Enter password length:")
+length_label.pack()
+length_entry = tk.Entry(root)
+length_entry.pack()
+
+# Create a button to generate the password
+generate_button = tk.Button(root, text="Generate Password", command=generate_password)
+generate_button.pack()
+
+# Create a label to display the generated password
+password_label = tk.Label(root, text="")
+password_label.pack()
+
+# Start the tkinter main loop
+root.mainloop()
