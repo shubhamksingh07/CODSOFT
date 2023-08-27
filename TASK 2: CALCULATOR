@@ -1,0 +1,58 @@
+import tkinter as tk
+
+def press_button(key):
+    current = display_var.get()
+
+    if key == "C":
+        current = ""
+    elif key == "=":
+        try:
+            current = str(eval(current))
+        except Exception as e:
+            current = "Error"
+    else:
+        current += key
+
+    display_var.set(current)
+
+
+root = tk.Tk()
+root.title("Calculator")
+
+
+display_var = tk.StringVar()
+display_var.set("")
+
+
+entry_display = tk.Entry(root, textvariable=display_var, bd=5, font=('Arial', 20), justify="right")
+entry_display.grid(row=0, column=0, columnspan=4)
+
+
+buttons = [
+    '7', '8', '9', '/',
+    '4', '5', '6', '*',
+    '1', '2', '3', '-',
+    '0', '.', 'C', '+'
+]
+
+
+def button_click(key):
+    return lambda: press_button(key)
+
+
+row_idx, col_idx = 1, 0
+for button in buttons:
+    tk.Button(root, text=button, width=5, height=2, command=button_click(button)).grid(row=row_idx, column=col_idx)
+    col_idx += 1
+    if col_idx > 3:
+        col_idx = 0
+        row_idx += 1
+
+# Equals button
+tk.Button(root, text="=", width=5, height=2, command=button_click("=")).grid(row=row_idx, column=0)
+# Zero button
+tk.Button(root, text="0", width=5, height=2, command=button_click("0")).grid(row=row_idx, column=1, columnspan=2)
+# Decimal button
+tk.Button(root, text=".", width=5, height=2, command=button_click(".")).grid(row=row_idx, column=3)
+
+root.mainloop()
